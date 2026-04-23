@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>버거제이 매뉴얼</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Black+Han+Sans&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0e0c;
+    --bg2: #1a1916;
+    --bg3: #242220;
+    --card: #1e1d1b;
+    --border: #2e2c29;
+    --accent: #E8A020;
+    --accent2: #FF6B35;
+    --text: #f0ede8;
+    --text2: #9a9590;
+    --text3: #6b6560;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,14,12,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex; align-items: center; gap: 0;
+    height: 56px;
+    overflow-x: auto;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  .nav-brand {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 18px;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+    margin-right: 24px;
+    flex-shrink: 0;
+  }
+  .nav-links { display: flex; gap: 4px; }
+  .nav-link {
+    padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500;
+    color: var(--text2); cursor: pointer; white-space: nowrap;
+    transition: all 0.15s; border: none; background: none; font-family: inherit;
+  }
+  .nav-link:hover { color: var(--text); background: var(--bg3); }
+  .nav-link.active { color: var(--accent); background: rgba(232,160,32,0.12); }
+
+  /* HERO */
+  .hero {
+    padding: 64px 24px 48px;
+    max-width: 900px; margin: 0 auto;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: inline-block;
+    width: 24px; height: 2px; background: var(--accent);
+  }
+  .hero-title {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: clamp(36px, 7vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -1px;
+    color: var(--text);
+  }
+  .hero-title em {
+    color: var(--accent); font-style: normal;
+  }
+  .hero-sub {
+    margin-top: 16px; font-size: 14px; color: var(--text2); line-height: 1.8;
+  }
+  .hero-divider {
+    margin-top: 40px; height: 1px; background: linear-gradient(90deg, var(--accent) 0%, transparent 60%);
+  }
+
+  /* SECTIONS */
+  .page { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+  .section { margin-bottom: 64px; }
+  .section-head {
+    display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px;
+  }
+  .section-num {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 48px; color: var(--bg3); line-height: 1;
+    user-select: none;
+  }
+  .section-label {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 24px; color: var(--text); letter-spacing: -0.5px;
+  }
+  .section-label span { color: var(--accent); }
+
+  /* FRY GRID */
+  .fry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .fry-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 18px 16px;
+    position: relative; overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .fry-card:hover { transform: translateY(-2px); border-color: var(--accent2); }
+  .fry-bar {
+    position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .fry-card:nth-child(1) .fry-bar { background: #FF6B35; }
+  .fry-card:nth-child(2) .fry-bar { background: #FFB347; }
+  .fry-card:nth-child(3) .fry-bar { background: #4ECDC4; }
+  .fry-card:nth-child(4) .fry-bar { background: #E74C3C; }
+  .fry-card:nth-child(5) .fry-bar { background: #9B59B6; }
+  .fry-card:nth-child(6) .fry-bar { background: #E67E22; }
+  .fry-card:nth-child(7) .fry-bar { background: #C0392B; }
+
+  .fry-time {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 32px; color: var(--accent); line-height: 1; margin-bottom: 4px;
+  }
+  .fry-time sup { font-size: 14px; color: var(--text2); font-family: 'Noto Sans KR'; font-weight: 500; }
+  .fry-items { font-size: 13px; color: var(--text); font-weight: 700; line-height: 1.8; }
+
+  /* BURGER */
+  .burger-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+  }
+  .burger-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    transition: border-color 0.2s;
+  }
+  .burger-card:hover { border-color: var(--accent); }
+  .burger-name {
+    font-size: 14px; font-weight: 700; color: var(--text);
+    margin-bottom: 14px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .burger-layers { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .layer {
+    width: 100%; max-width: 140px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; border-radius: 3px;
+    letter-spacing: 0.3px;
+  }
+  .bun-top    { height:26px; border-radius:50% 50% 3px 3px/16px 16px 3px 3px; background:#C17B20; color:#fff8e0; }
+  .bun-bot    { height:16px; border-radius:3px 3px 10px 10px; background:#C17B20; color:#fff8e0; }
+  .rye-top    { height:26px; border-radius:50% 50% 3px 3px/16px 16px 3px 3px; background:#5C3A10; color:#e8d0a0; }
+  .rye-bot    { height:16px; border-radius:3px 3px 10px 10px; background:#5C3A10; color:#e8d0a0; }
+  .patty      { height:20px; background:#5a2e1a; color:#f0c090; }
+  .shrimp-p   { height:20px; background:#D0643A; color:#fff; }
+  .cheese     { height:13px; background:#e6a800; color:#5a3c00; width:calc(100% + 10px); max-width:150px; }
+  .bacon-l    { height:11px; background:#8B2315; color:#ffcccc;
+                background-image:repeating-linear-gradient(90deg,transparent,transparent 8px,rgba(255,255,255,0.08) 8px,rgba(255,255,255,0.08) 10px); }
+  .lettuce    { height:12px; background:#1a7a40; color:#b0ffcc;
+                background-image:repeating-linear-gradient(90deg,#1a7a40,#22a055 5px,#1a7a40 5px); }
+  .tomato     { height:11px; background:#c02a1a; color:#ffcccc; }
+  .onion      { height:10px; background:#9B5070; color:#ffddee; }
+  .g-onion    { height:12px; background:#A06010; color:#ffe0a0; }
+
+  .burger-tag {
+    margin-top: 10px; padding: 6px 10px;
+    background: rgba(232,160,32,0.1); border: 1px solid rgba(232,160,32,0.25);
+    border-radius: 8px; font-size: 10px; color: #e8a020; font-weight: 700;
+  }
+
+  /* SIDE GRID */
+  .side-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .side-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    transition: border-color 0.2s;
+  }
+  .side-card:hover { border-color: var(--accent2); }
+  .side-top {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+  }
+  .side-name { font-size: 14px; font-weight: 700; color: var(--text); }
+  .side-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .step-list { list-style: none; }
+  .step-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .step-item:last-child { border-bottom: none; }
+  .step-n {
+    min-width: 20px; height: 20px;
+    background: var(--bg3); color: var(--text2);
+    border-radius: 6px; font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .step-t { font-size: 12px; color: var(--text); font-weight: 700; line-height: 1.5; }
+  .step-t .dim { font-weight: 400; color: var(--text2); }
+  .opt-tag {
+    display: inline-block; font-size: 9px; font-weight: 700;
+    background: rgba(255,107,53,0.15); color: #FF6B35;
+    border-radius: 4px; padding: 1px 5px; margin-left: 4px; vertical-align: middle;
+  }
+
+  /* note */
+  .note {
+    display: flex; align-items: flex-start; gap: 10px;
+    background: rgba(232,160,32,0.08); border: 1px solid rgba(232,160,32,0.2);
+    border-radius: 10px; padding: 12px 14px;
+    font-size: 12px; color: #e8c070; margin-bottom: 18px; font-weight: 500;
+  }
+  .note-icon { font-size: 14px; flex-shrink: 0; }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">BURGER J</div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="scrollTo('fry')">🍟 튀김 시간</button>
+    <button class="nav-link" onclick="scrollTo('burger')">🍔 버거 조립</button>
+    <button class="nav-link" onclick="scrollTo('side')">🧂 사이드 메뉴</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Kitchen Operations Guide</div>
+  <h1 class="hero-title">버거제이<br><em>매뉴얼</em></h1>
+  <p class="hero-sub">조리 시간 · 버거 조립 · 사이드 메뉴 만드는 순서</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="page">
+
+  <!-- 튀김 -->
+  <div class="section reveal" id="fry">
+    <div class="section-head">
+      <div class="section-num">01</div>
+      <div class="section-label"><span>튀김류</span> 조리 시간</div>
+    </div>
+    <div class="fry-grid">
+      <div class="fry-card">
+        <div class="fry-bar"></div>
+        <div class="fry-time">3:50<sup>초</sup></div>
+        <div class="fry-items">감자튀김 (일반 / 줄무늬 / 맛감자)<br>치킨 너겟 · 치즈볼</div>
+      </div>
+      <div class="fry-card">
+        <div class="fry-bar"></div>
+        <div class="fry-time">2:40<sup>초</sup></div>
+        <div class="fry-items">고구마튀김<br>어니언링</div>
+      </div>
+      <div class="fry-card">
+        <div class="fry-bar"></div>
+        <div class="fry-time">4:30<sup>초</sup></div>
+        <div class="fry-items">해쉬브라운<br>새우패티</div>
+      </div>
+      <div class="fry-card">
+        <div class="fry-bar"></div>
+        <div class="fry-time">5:20<sup>초</sup></div>
+        <div class="fry-items">순살치킨<br>치킨텐더</div>
+      </div>
+      <div class="fry-card">
+        <div class="fry-bar"></div>
+        <div class="fry-time">2:00</div>
+        <div class="fry-items">치즈스틱</div>
+      </div>
+      <div class="fry-card">
+        <div class="fry-bar"></div>
+        <div class="fry-time">3:30<sup>초</sup></div>
+        <div class="fry-items">칠리스 치즈스틱</div>
+      </div>
+      <div class="fry-card">
+        <div class="fry-bar"></div>
+        <div class="fry-time">6:00</div>
+        <div class="fry-items">닭껍질</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 버거 -->
+  <div class="section reveal" id="burger">
+    <div class="section-head">
+      <div class="section-num">02</div>
+      <div class="section-label"><span>버거</span> 조립 순서</div>
+    </div>
+    <div class="note">
+      <span class="note-icon">💡</span>
+      버거는 <strong>아래에서 위로</strong> 쌓아요 — 번 바닥 → 재료 → 번 윗면 순서
+    </div>
+    <div class="burger-grid">
+
+      <div class="burger-card">
+        <div class="burger-name">① J버거 (일반형태)</div>
+        <div class="burger-layers">
+          <div class="layer bun-top">번 (위)</div>
+          <div class="layer lettuce">로메인</div>
+          <div class="layer tomato">토마토</div>
+          <div class="layer onion">양파</div>
+          <div class="layer cheese">치즈</div>
+          <div class="layer patty">패티</div>
+          <div class="layer bun-bot">번 (아래)</div>
+        </div>
+      </div>
+
+      <div class="burger-card">
+        <div class="burger-name">② 베이컨 치즈버거</div>
+        <div class="burger-layers">
+          <div class="layer bun-top">번 (위)</div>
+          <div class="layer lettuce">로메인</div>
+          <div class="layer tomato">토마토</div>
+          <div class="layer bacon-l">베이컨</div>
+          <div class="layer g-onion">구운 양파</div>
+          <div class="layer cheese">치즈</div>
+          <div class="layer patty">패티</div>
+          <div class="layer bun-bot">번 (아래)</div>
+        </div>
+      </div>
+
+      <div class="burger-card">
+        <div class="burger-name">③ 새우버거</div>
+        <div class="burger-layers">
+          <div class="layer bun-top">번 (위)</div>
+          <div class="layer shrimp-p">새우패티</div>
+          <div class="layer onion">양파</div>
+          <div class="layer tomato">토마토</div>
+          <div class="layer lettuce">로메인</div>
+          <div class="layer bun-bot">번 (바닥)</div>
+        </div>
+        <div class="burger-tag">⚠️ 번 바닥면이 아래로 오게 포장</div>
+      </div>
+
+      <div class="burger-card">
+        <div class="burger-name">④ 패티멜트</div>
+        <div class="burger-layers">
+          <div class="layer rye-top">호밀빵 (위)</div>
+          <div class="layer g-onion">그릴드 어니언</div>
+          <div class="layer patty">패티</div>
+          <div class="layer rye-bot">호밀빵 (아래)</div>
+        </div>
+        <div class="burger-tag">✅ 재료 딱 3가지!</div>
+      </div>
+
+    </div>
+    <div class="note" style="margin-top:16px;margin-bottom:0;">
+      <span class="note-icon">🍤</span>
+      <strong>직화통새우버거</strong>는 J버거 일반형태와 동일하게 조립
+    </div>
+  </div>
+
+  <!-- 사이드 -->
+  <div class="section reveal" id="side">
+    <div class="section-head">
+      <div class="section-num">03</div>
+      <div class="section-label"><span>사이드 메뉴</span> 만드는 순서</div>
+    </div>
+    <div class="side-grid">
+
+      <div class="side-card">
+        <div class="side-top">
+          <div class="side-name">화이트갈릭 치즈프라이즈</div>
+          <div class="side-dot" style="background:#F1C40F;"></div>
+        </div>
+        <ul class="step-list">
+          <li class="step-item"><div class="step-n">1</div><div class="step-t">곽접시</div></li>
+          <li class="step-item"><div class="step-n">2</div><div class="step-t">줄무늬 감자 담기</div></li>
+          <li class="step-item"><div class="step-n">3</div><div class="step-t">갈릭치즈 토핑</div></li>
+          <li class="step-item"><div class="step-n">4</div><div class="step-t">체다치즈 <span class="dim">조금</span> 토핑</div></li>
+          <li class="step-item"><div class="step-n">5</div><div class="step-t">갈아쓰는 치즈</div></li>
+          <li class="step-item"><div class="step-n">6</div><div class="step-t">파슬리가루</div></li>
+        </ul>
+      </div>
+
+      <div class="side-card">
+        <div class="side-top">
+          <div class="side-name">체다치즈프라이즈</div>
+          <div class="side-dot" style="background:#E67E22;"></div>
+        </div>
+        <ul class="step-list">
+          <li class="step-item"><div class="step-n">1</div><div class="step-t">곽접시</div></li>
+          <li class="step-item"><div class="step-n">2</div><div class="step-t">줄무늬감자 담기</div></li>
+          <li class="step-item"><div class="step-n">3</div><div class="step-t">체다치즈 토핑</div></li>
+          <li class="step-item"><div class="step-n">4</div><div class="step-t">샬롯렌치 <span class="dim">조금</span> 토핑</div></li>
+          <li class="step-item"><div class="step-n">5</div><div class="step-t">갈아쓰는 치즈</div></li>
+          <li class="step-item"><div class="step-n">6</div><div class="step-t">파슬리가루</div></li>
+        </ul>
+      </div>
+
+      <div class="side-card">
+        <div class="side-top">
+          <div class="side-name">트러플 파마산 프라이즈</div>
+          <div class="side-dot" style="background:#8E44AD;"></div>
+        </div>
+        <ul class="step-list">
+          <li class="step-item"><div class="step-n">1</div><div class="step-t">곽접시</div></li>
+          <li class="step-item"><div class="step-n">2</div><div class="step-t">트러플오일 <span class="dim">중간중간 5~6회 펌핑</span></div></li>
+          <li class="step-item"><div class="step-n">3</div><div class="step-t">파마산가루 토핑</div></li>
+          <li class="step-item"><div class="step-n">4</div><div class="step-t">파슬리가루</div></li>
+        </ul>
+      </div>
+
+      <div class="side-card">
+        <div class="side-top">
+          <div class="side-name">화이트갈릭 순살</div>
+          <div class="side-dot" style="background:#27AE60;"></div>
+        </div>
+        <ul class="step-list">
+          <li class="step-item"><div class="step-n">1</div><div class="step-t">곽접시</div></li>
+          <li class="step-item"><div class="step-n">2</div><div class="step-t">순살치킨 담기</div></li>
+          <li class="step-item"><div class="step-n">3</div><div class="step-t">갈릭치즈 토핑</div></li>
+          <li class="step-item"><div class="step-n">4</div><div class="step-t">체다치즈 <span class="dim">조금</span> 토핑</div></li>
+          <li class="step-item"><div class="step-n">5</div><div class="step-t">갈아쓰는 치즈</div></li>
+          <li class="step-item"><div class="step-n">6</div><div class="step-t">파슬리가루</div></li>
+        </ul>
+      </div>
+
+      <div class="side-card">
+        <div class="side-top">
+          <div class="side-name">고구마프라이즈</div>
+          <div class="side-dot" style="background:#E74C3C;"></div>
+        </div>
+        <ul class="step-list">
+          <li class="step-item"><div class="step-n">1</div><div class="step-t">고구마 시나몬슈거 버무리기</div></li>
+          <li class="step-item"><div class="step-n">2</div><div class="step-t">슈거파우더</div></li>
+          <li class="step-item"><div class="step-n">3</div><div class="step-t">파슬리</div></li>
+          <li class="step-item"><div class="step-n">4</div><div class="step-t">연유 1통<span class="opt-tag">옵션</span></div></li>
+        </ul>
+      </div>
+
+      <div class="side-card">
+        <div class="side-top">
+          <div class="side-name">닭껍질</div>
+          <div class="side-dot" style="background:#C0392B;"></div>
+        </div>
+        <ul class="step-list">
+          <li class="step-item"><div class="step-n">1</div><div class="step-t">곽접시</div></li>
+          <li class="step-item"><div class="step-n">2</div><div class="step-t">닭껍질 담기</div></li>
+          <li class="step-item"><div class="step-n">3</div><div class="step-t">칠리양념</div></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function scrollTo(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.nav-link').forEach((el,i) => {
+      el.classList.toggle('active', ['fry','burger','side'][i] === id);
+    });
+  }
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  window.addEventListener('scroll', () => {
+    ['fry','burger','side'].forEach((id,i) => {
+      const el = document.getElementById(id);
+      if(!el) return;
+      const rect = el.getBoundingClientRect();
+      if(rect.top <= 80 && rect.bottom > 80) {
+        document.querySelectorAll('.nav-link').forEach((l,j) => l.classList.toggle('active', i===j));
+      }
+    });
+  });
+</script>
+</body>
+</html>
